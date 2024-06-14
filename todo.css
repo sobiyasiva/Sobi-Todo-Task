@@ -1,0 +1,347 @@
+* {
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    width:100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color:  #eed9e3;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.todo-container{
+    border-radius: 5px;    
+    width: 50%;    
+    height:100%;  
+}
+.main-section{
+    border-radius: 10px;
+    padding: 2%;
+    background-color: #bb9fae;
+}
+
+.header {
+    margin:0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px; 
+    height: auto;
+    margin-right: 2px;
+}
+.input-container {
+    display: flex;
+    border-radius: 3px;   
+}
+#addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    padding: 15px 30px;
+    border: none;
+    background-color: #614051;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#addButton:hover {
+    background-color: #ccb6c1;
+}
+
+.input-container input[type="text"] {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+.list-headings{
+    color: #49303d;
+    text-decoration: underline;
+    width:98%;
+    font-size: 10px;
+    height:3%;
+    display: flex;
+    justify-content: space-between;
+}
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 1%;
+    height:5%;
+    margin-bottom: 2%;
+}
+
+.tab-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #bb9fae;
+    font-weight: bold;
+    color:  #462f3b;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+    background-color: #614051; 
+    color: #fff;
+}
+.actions{
+    margin-left: auto;
+   }
+   .h1{
+       margin-top: inherit;
+       margin-left: 50px;
+
+   }
+   .h2{
+       margin-top: inherit;
+       margin-right: 50px;
+   }
+   .task-empty{
+       margin-top: 120px;
+       align-items: center;
+       justify-content: center;
+   }
+   .task-list-container {
+    height: 70%; 
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #bb9fae;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+.task-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    word-break: break-word;
+}
+
+.task-list li:first-child {
+    margin-top: 10px;
+}
+.task-list li:last-child {
+    margin-bottom: 10px;
+}
+
+.task-text {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.task-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  
+}
+
+.task-actions button:hover {
+    background-color: #0056b3;
+}
+
+.task-actions .delete {
+    background-color: #dc3545;
+}
+
+.task-actions .delete:hover {
+    background-color: #c82333;
+}
+
+.task-list.hidden {
+    display: none;
+}
+
+.task-item.completed {
+    background-color: #d4edda;
+}
+.task-item:not(.completed) {
+    background-color: #f8d7da; 
+}
+
+.task-item.completed .task-text {
+    color: #6c757d;
+}
+
+.task-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+button {
+    justify-content: space-between;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button.delete {
+    
+    margin-left: 20px;
+    background-color: #dc3545;
+}
+
+button.edit {
+    background-color: #ffc107;
+}
+
+.modal {
+    display: none;
+    position: fixed; 
+    width: 100%;
+    height: 100%;   
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    word-wrap: break-word;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+#confirmYes, #confirmNo {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+#confirmYes:hover, #confirmNo:hover {
+    background-color: #0056b3;
+}
+
+.toast-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.toast {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.toast.add {
+    background-color: green;
+}
+
+.toast.edit {
+    background-color: blue;
+}
+
+.toast.delete {
+    background-color: red;
+}
+
+.toast.error {
+    background-color: orange;
+}
+@media screen and (max-width: 600px) {
+    html,body{
+         width:100%;
+         height:100%;
+        
+     }
+     .todo-container {
+         width: 100%;
+         height:100%;
+         padding: 2%;    
+     }
+     .header{
+        height: 5%;
+     }
+     .input-container{
+        margin-bottom: 3%;
+     }
+     .tab-button{
+        font-size: 12px;
+        margin-bottom: 1%;
+     }
+     .list-headings{
+        height:4%;
+     }
+     #addButton {
+         height:70%;
+         width: 20%;
+         margin-left: 9px;
+         font-size: 16px;
+     }
+ }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="todo.css">    
+</head>
+<body>
+    <div class="todo-container">
+            <div class="main-section">
+            <div class="header">
+                <img src="todo logo image.png" alt="Logo" class="logo">
+                <h1>TODO LIST</h1>     
+            </div>
+            <div class="input-container">
+                <input type="text" id="taskInput" placeholder="Enter new task">
+                <button id="addButton">Add</button>
+            </div>
+        </div>
+
+        <div class="container tabs">
+            <button class="tab-button active" data-tab="all">All (<span id="allCount">0</span>)</button>
+            <button class="tab-button" data-tab="incomplete">Incomplete (<span id="incompleteCount">0</span>)</button>
+            <button class="tab-button" data-tab="completed">Completed (<span id="completedCount">0</span>)</button>
+        </div>
+        <div class="list-headings">
+            <h2 class="h1">List of Tasks</h2>
+            <h2 class="h2">Actions</h2>
+        </div>
+
+        <div class="container task-list-container">
+            <ul class="task-list" id="allTasks"></ul>
+            <ul class="task-list hidden" id="incompleteTasks"></ul>
+            <ul class="task-list hidden" id="completedTasks"></ul>
+        </div>
+
+        
+    </div>   
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+          <p id="confirmMessage"></p>
+          <div class="modal-actions">
+            <button id="confirmYes">Yes</button>
+            <button id="confirmNo">No</button>
+          </div>
+        </div>
+      </div>
+      
+    <div class="toast-container"></div>
+    <script src="todo.js"></script>
+</body>
+</html>
