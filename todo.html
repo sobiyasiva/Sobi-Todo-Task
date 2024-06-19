@@ -16,14 +16,15 @@
             <div class="input-container">
                 <input type="text" id="taskInput" placeholder="Enter new task">
                 <button id="addButton">Add</button>
+                <div class="note-message" id="noteMessage" style="color: red;"></div>
             </div>
         </div>
-
         <div class="container tabs">
             <button class="tab-button active" data-tab="all">All (<span id="allCount">0</span>)</button>
             <button class="tab-button" data-tab="incomplete">Incomplete (<span id="incompleteCount">0</span>)</button>
             <button class="tab-button" data-tab="completed">Completed (<span id="completedCount">0</span>)</button>
         </div>
+
         <div class="list-headings">
             <h2 class="h1">List of Tasks</h2>
             <h2 class="h2">Actions</h2>
@@ -33,20 +34,19 @@
             <ul class="task-list" id="allTasks"></ul>
             <ul class="task-list hidden" id="incompleteTasks"></ul>
             <ul class="task-list hidden" id="completedTasks"></ul>
-        </div>
-
-        
+        </div>       
     </div>   
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-          <p id="confirmMessage"></p>
-          <div class="modal-actions">
+   <div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-message-container">
+            <div id="confirmMessage" class="modal-message"></div>
+        </div>
+        <div class="modal-actions">
             <button id="confirmYes">Yes</button>
             <button id="confirmNo">No</button>
-          </div>
         </div>
-      </div>
-      
+    </div>
+</div>   
     <div class="toast-container"></div>
     <script src="todo.js"></script>
 </body>
