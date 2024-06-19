@@ -14,10 +14,6 @@ body{
     justify-content: center;
     align-items: center; 
 }
-span{
-    width:70%;
-    padding-left:3%;
-}
 .todo-container{
     margin-top: 1%;
     border-radius: 5px;    
@@ -28,6 +24,10 @@ span{
     border-radius: 10px;
     padding: 2%;
     background-color: #562e83;
+}
+span{
+    width:70%;
+    padding-left:3%;
 }
 .header {
     margin:0;
@@ -58,6 +58,14 @@ span{
     display: flex;
     border-radius: 3px;   
 }
+.input-container input[type="text"] {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
 #addButton{
     display: flex;
     justify-content: center;
@@ -74,25 +82,6 @@ span{
 }
 #addButton:hover {
     background-color:rgb(194, 10, 40);
-}
-
-.input-container input[type="text"] {
-    flex: 1;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    outline: none;
-}
-.list-headings{
-    outline: none;
-    background-color: #562e83;
-    color: white;
-    width:100%;
-    font-size: 10px;
-    height:3%;
-    display: flex;
-    justify-content: space-between;
 }
 .tabs {
     display: flex;
@@ -118,6 +107,15 @@ span{
     background-color: #21093b; 
     color: #fff;
 }
+.list-headings{
+    background-color: #562e83;
+    color: white;
+    width:100%;
+    font-size: 10px;
+    height:3%;
+    display: flex;
+    justify-content: space-between;
+}
 .actions{
     margin-left: auto;
    }
@@ -130,11 +128,13 @@ span{
        margin-right: 80px;
    }
    .task-empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
        margin-top: 120px;
        font-style: italic;
    }
    .task-list-container {
-    outline: none;
     height: 65%; 
     overflow-y: auto; 
     border: 1px solid #ccc;
@@ -143,7 +143,6 @@ span{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 .task-list {
-    list-style-type: none;
     padding: 0;
     margin: 0;
     word-wrap: break-word;
@@ -168,38 +167,13 @@ span{
 .task-list li:last-child {
     margin-bottom: 10px;
 }
-
-.task-text {
-    flex: 1;
-    font-size: 16px;
-    color: #333;
-}
-
 .task-actions {
     display: flex;
     gap: 10px;
 }
-
-.task-actions button {
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-  
-}
 #allCount,#incompleteCount,#completedCount{
     padding-left: 0;
 }
-
-.task-actions .delete {
-    background-color: #dc3545;
-}
-
-.task-actions .delete:hover {
-    background-color: #c82333;
-}
-
 .task-list.hidden {
     display: none;
 }
@@ -210,20 +184,6 @@ span{
 .task-item:not(.completed) {
     background-color: #f8d7da; 
 }
-
-.task-item.completed .task-text {
-    color: #6c757d;
-}
-
-.task-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
 button {
     justify-content: space-between;
     padding: 5px 10px;
@@ -253,7 +213,7 @@ button.delete:hover{
     background-color: rgba(0, 0, 0, 0.4);
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -272,21 +232,12 @@ button.delete:hover{
 }
 
 .modal-message-container {
-    flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 20px;
     max-height: calc(80vh - 80px); 
 }
-
 .modal-message {
     word-wrap: break-word;
-}
-
-.modal-message div {
-    margin-bottom: 10px;
-}
-.modal-actions {
-    text-align: center;
 }
 #confirmYes, #confirmNo {
     padding: 10px 20px;
@@ -310,7 +261,6 @@ button.delete:hover{
     flex-direction: column;
     align-items: flex-start;
 }
-
 .toast {
     margin-bottom: 10px;
     padding: 10px;
@@ -337,8 +287,7 @@ button.delete:hover{
 @media screen and (max-width: 600px) {
     html,body{
          width:100%;
-         height:100%;
-        
+         height:100%;    
      }
      .todo-container {
          width: 100%;
