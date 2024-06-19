@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
 }
-
 html{
     height: 100%;
     width:100%;
@@ -11,23 +10,25 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color:  #eed9e3;
     display: flex;
     justify-content: center;
     align-items: center; 
 }
-
+span{
+    width:70%;
+    padding-left:3%;
+}
 .todo-container{
+    margin-top: 1%;
     border-radius: 5px;    
     width: 50%;    
-    height:100%;  
+    height:90%;  
 }
 .main-section{
     border-radius: 10px;
     padding: 2%;
-    background-color: #bb9fae;
+    background-color: #562e83;
 }
-
 .header {
     margin:0;
     padding: 0;
@@ -35,6 +36,13 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 8px;
+    color: white;
+}
+.note-message {
+    position: absolute;
+    bottom: -20px; 
+    left: 0;
+    font-size: 14px;
 }
 .logo {
     display: flex;
@@ -45,6 +53,8 @@ body{
     margin-right: 2px;
 }
 .input-container {
+    position: relative;
+    margin-bottom: 20px;
     display: flex;
     border-radius: 3px;   
 }
@@ -55,7 +65,7 @@ body{
     margin-left: 15px;
     padding: 15px 30px;
     border: none;
-    background-color: #614051;
+    background-color: rgb(231, 83, 108);
     color: #fff;
     border-radius: 5px;
     font-size: 16px;
@@ -63,7 +73,7 @@ body{
     font-weight: bold;
 }
 #addButton:hover {
-    background-color: #ccb6c1;
+    background-color:rgb(194, 10, 40);
 }
 
 .input-container input[type="text"] {
@@ -75,9 +85,10 @@ body{
     outline: none;
 }
 .list-headings{
-    color: #49303d;
-    text-decoration: underline;
-    width:98%;
+    outline: none;
+    background-color: #562e83;
+    color: white;
+    width:100%;
     font-size: 10px;
     height:3%;
     display: flex;
@@ -88,23 +99,23 @@ body{
     justify-content: space-around;
     margin: 1%;
     height:5%;
-    margin-bottom: 2%;
 }
 
 .tab-button {
+    width:32%;
     padding: 5px 10px;
     border: none;
-    background-color: #bb9fae;
+    background-color: #562e83;
     font-weight: bold;
-    color:  #462f3b;
+    color:  white;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .tab-button.active {
-    background-color: #614051; 
+    background-color: #21093b; 
     color: #fff;
 }
 .actions{
@@ -113,35 +124,30 @@ body{
    .h1{
        margin-top: inherit;
        margin-left: 50px;
-
    }
    .h2{
        margin-top: inherit;
-       margin-right: 50px;
+       margin-right: 80px;
    }
    .task-empty{
        margin-top: 120px;
-       align-items: center;
-       justify-content: center;
+       font-style: italic;
    }
    .task-list-container {
-    height: 70%; 
+    outline: none;
+    height: 65%; 
     overflow-y: auto; 
     border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #bb9fae;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-   
+    background-color: #562e83;
+    padding: 3px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
-
 .task-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
     word-wrap: break-word;
 }
-
 .task-list li {
     display: flex;
     flex-wrap: wrap;
@@ -175,7 +181,6 @@ body{
 }
 
 .task-actions button {
-    background-color: #007bff;
     color: white;
     border: none;
     padding: 5px 15px;
@@ -183,9 +188,8 @@ body{
     cursor: pointer;
   
 }
-
-.task-actions button:hover {
-    background-color: #0056b3;
+#allCount,#incompleteCount,#completedCount{
+    padding-left: 0;
 }
 
 .task-actions .delete {
@@ -229,17 +233,18 @@ button {
     cursor: pointer;
     border-radius: 5px;
 }
+button.edit:hover{
+    background-color: #0059ff;
+}
 
 button.delete {
     
     margin-left: 20px;
     background-color: #dc3545;
 }
-
-button.edit {
-    background-color: #ffc107;
+button.delete:hover{
+    background-color: #bd0e1f;
 }
-
 .modal {
     display: none;
     position: fixed; 
@@ -248,18 +253,40 @@ button.edit {
     background-color: rgba(0, 0, 0, 0.4);
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
+
 .modal-content {
-    word-wrap: break-word;
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 400px;
-    text-align: center;
+    max-height: 80%;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-message-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    max-height: calc(80vh - 80px); 
+}
+
+.modal-message {
+    word-wrap: break-word;
+}
+
+.modal-message div {
+    margin-bottom: 10px;
+}
+.modal-actions {
+    text-align: center;
 }
 #confirmYes, #confirmNo {
     padding: 10px 20px;
@@ -267,15 +294,14 @@ button.edit {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #562e83;
     color: #fff;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
 #confirmYes:hover, #confirmNo:hover {
-    background-color: #0056b3;
+    background-color: #21093b;
 }
-
 .toast-container {
     position: fixed;
     top: 10px;
@@ -292,25 +318,19 @@ button.edit {
     color: #fff;
     border-radius: 3px;
     opacity: 0;
-    transition: opacity 0.5s linear;
 }
-
 .toast.show {
     opacity: 1;
 }
-
 .toast.add {
     background-color: green;
 }
-
 .toast.edit {
     background-color: blue;
 }
-
 .toast.delete {
     background-color: red;
 }
-
 .toast.error {
     background-color: orange;
 }
@@ -334,6 +354,7 @@ button.edit {
      .tab-button{
         font-size: 12px;
         margin-bottom: 1%;
+        width:32%;
      }
      .list-headings{
         height:4%;
@@ -344,4 +365,27 @@ button.edit {
          margin-left: 9px;
          font-size: 16px;
      }
+     .h1{
+        margin-top: 2%;
+        margin-left: 50px;
+    }
+    .h2{
+        margin-top: 2%;
+        margin-right: 80px;
+    }
+ }
+ @media screen and (max-width: 1060px){
+    span{
+        width:50%;
+    }   
+ }
+ @media screen and (min-width: 1500px){
+ .h1{
+    margin-top: 1%;
+    margin-left: 50px;
+}
+.h2{
+    margin-top: 1%;
+    margin-right: 80px;
+}
  }
