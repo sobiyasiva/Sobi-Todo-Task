@@ -164,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
             messageTop.textContent = task.status === 'completed' ? `Are you sure you want to mark the task as incomplete?` : `Are you sure you want to mark the task as completed?`;
             messageBottom.innerHTML = `Task: <strong>${task.text}</strong>`;
             confirmMessage.innerHTML = ''; 
+            messageTop.className='message-top';
+            messageBottom.className='message-bottom';
             confirmMessage.appendChild(messageTop);
             confirmMessage.appendChild(messageBottom);
             confirmYes.onclick = confirmToggleTaskStatus;
@@ -200,6 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteMessageTop.textContent = `Are you sure you want to delete the task?`;
             deleteMessageBottom.innerHTML = `Task: <strong>${task.text}</strong>`;
             confirmMessage.innerHTML = '';
+            deleteMessageTop.className='message-top';
+            deleteMessageBottom.className='message-bottom';
             confirmMessage.appendChild(deleteMessageTop);
             confirmMessage.appendChild(deleteMessageBottom);
             confirmYes.onclick = confirmDeleteTask;
