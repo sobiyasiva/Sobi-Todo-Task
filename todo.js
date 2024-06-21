@@ -22,30 +22,64 @@ document.addEventListener('DOMContentLoaded', () => {
     let checkboxOriginalState = null;
     let checkboxElement = null; 
 
-    // Toast function
-    function showToast(message, type = 'default') {
-        const toastContainer = document.querySelector('.toast-container');
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.textContent = message;
-        toastContainer.appendChild(toast);
-
-        setTimeout(() => {
-            toast.classList.add('show');
-        }, 100);
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => {
-                toastContainer.removeChild(toast);
-            }, 300);
-        }, 3000);
-    }
+        // Add task function
+        function addTask() {
+            let taskValue = taskInput.value.trim();
+            // replace all the leading spaces with 1 whitespace and g is the global variable to set all the text to only 1 whitespace
+            taskValue = taskValue.replace(/\s+/g, ' '); 
+            // stores the original text,if while editing there is no change it returns the text with no changes or otherwise empty string
+            const originalTaskText = taskInput.dataset.originalTaskText || ''; 
+    
+            if (!taskValue) {
+                showToast('Task cannot be empty.', 'error');
+                return;
+            }
+    
+            if (isEditing) {
+                // editIndex-helps to identify if there is any duplicates
+                // index!==editIndex ensures that the index of the task and the editIndex task is not compared
+                // converting the existing task and the input task to lowercase to check if the task already exists
+                // task.text-existing task,taskValue-input task
+                const isSameAsExisting = tasks.some((task, index) => index !== editIndex && task.text.toLowerCase() === taskValue.toLowerCase());
+                if (isSameAsExisting) {
+                    showToast('Task already exists.', 'error');
+                    return;
+                }
+                // updates the task to new value
+                tasks[editIndex].text = taskValue; 
+                // removes the task from that position and adding the task to first position
+                tasks.unshift(tasks.splice(editIndex, 1)[0]);
+                isEditing = false;
+                editIndex = null;
+                addButton.textContent = 'Add';
+                showToast('Task updated successfully', 'edit');
+                const taskListContainer = document.querySelector('.task-list-container');
+                taskListContainer.scrollTop = 0;
+            } else {
+                // checks while adding the new task if there is any already existing task in the array
+                if (tasks.some(task => task.text.toLowerCase() === taskValue.toLowerCase())) {
+                    showToast('Task already exists.', 'error');
+                    return;
+                }
+                // to add the task to the incomplete tab
+                tasks.unshift({
+                    text: taskValue,
+                    status: 'incomplete'
+                });
+                showToast('Task added successfully', 'add');
+            }
+            taskInput.value = '';
+            renderTasks();
+            saveTasks();
+            switchTabs('all');
+            const taskListContainer = document.querySelector('.task-list-container');
+            taskListContainer.scrollTop = 0;
+        }
 
     // Special characters and whitespace functions
     taskInput.addEventListener('input', function () {
         let value = taskInput.value;
-
+// ^ denotes to be at the starting of the input text
         if (/[^a-zA-Z0-9\s]/.test(value)) {
             noteMessage.textContent = 'Special characters are not allowed.';
             value = value.replace(/[^a-zA-Z0-9\s]/g, '');
@@ -61,24 +95,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render function
     function renderTasks() {
+// initial task is empty
         allTasks.innerHTML = '';
         incompleteTasks.innerHTML = '';
         completedTasks.innerHTML = '';
-
+// initial count is 0
         let allCountValue = 0;
         let incompleteCountValue = 0;
         let completedCountValue = 0;
-
+// adds all the tasks to the all tab and increase the count
         tasks.forEach((task, index) => {
             const taskItem = createTaskItem(task, index);
             allTasks.appendChild(taskItem);
             allCountValue++;
-
+// adds to incomplete tab if task status is incomplete and increase the count
             if (task.status === 'incomplete') {
                 const incompleteTaskItem = createTaskItem(task, index);
                 incompleteTasks.appendChild(incompleteTaskItem);
                 incompleteCountValue++;
-            } else if (task.status === 'completed') {
+            } 
+// adds to complete tab if task status is completed and increase the count
+            else if (task.status === 'completed') {
                 const completedTaskItem = createTaskItem(task, index);
                 completedTasks.appendChild(completedTaskItem);
                 completedCountValue++;
@@ -108,15 +145,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskItem = document.createElement('li');
         taskItem.className = 'task-item';
         if (task.status === 'completed') {
+            // add the completed class to the taskItem for css styling
             taskItem.classList.add('completed');
         }
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+        // checked is pre-defined and 3 equals is used for strictly defined
         checkbox.checked = task.status === 'completed';
         checkbox.addEventListener('change', () => {
             taskToToggle = { task, index };
             checkboxOriginalState = checkbox.checked;
+            // used for reverting the changes
             checkboxElement = checkbox;
 
             const messageTop = document.createElement('div');
@@ -178,13 +218,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // when clicking yes the toggle function will be as follows
     function confirmToggleTaskStatus() {
         if (taskToToggle !== null) {
+            // assigning each task and index to the taskToToggle
             const { task, index } = taskToToggle;
             task.status = task.status === 'completed' ? 'incomplete' : 'completed';
+            // removes from the current position of the task
             tasks.splice(index, 1);
             tasks.unshift(task);
+            // says in which tab the task to be added
             renderTasks();
             saveTasks();
             showToast(`Task marked as ${getStatusToastText(task.status)}`, 'status');
+            // || or operator
             if (activeTab === 'incomplete' || activeTab === 'completed') {
                 switchTabs(task.status === 'completed' ? 'completed' : 'incomplete');
             }
@@ -230,49 +274,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 'Complete';
         }
     }
+    // Toast function
+    function showToast(message, type = 'default') {
+        const toastContainer = document.querySelector('.toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
 
-    // Add task function
-    function addTask() {
-        let taskValue = taskInput.value.trim();
-        taskValue = taskValue.replace(/\s+/g, ' '); 
-        const originalTaskText = taskInput.dataset.originalTaskText || ''; 
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
 
-        if (!taskValue) {
-            showToast('Task cannot be empty.', 'error');
-            return;
-        }
-
-        if (isEditing) {
-            const isSameAsExisting = tasks.some((task, index) => index !== editIndex && task.text.toLowerCase() === taskValue.toLowerCase());
-            if (isSameAsExisting) {
-                showToast('Task already exists.', 'error');
-                return;
-            }
-            tasks[editIndex].text = taskValue; 
-            tasks.unshift(tasks.splice(editIndex, 1)[0]);
-            isEditing = false;
-            editIndex = null;
-            addButton.textContent = 'Add';
-            showToast('Task updated successfully', 'edit');
-            const taskListContainer = document.querySelector('.task-list-container');
-            taskListContainer.scrollTop = 0;
-        } else {
-            if (tasks.some(task => task.text.toLowerCase() === taskValue.toLowerCase())) {
-                showToast('Task already exists.', 'error');
-                return;
-            }
-            tasks.unshift({
-                text: taskValue,
-                status: 'incomplete'
-            });
-            showToast('Task added successfully', 'add');
-        }
-        taskInput.value = '';
-        renderTasks();
-        saveTasks();
-        switchTabs('all');
-        const taskListContainer = document.querySelector('.task-list-container');
-        taskListContainer.scrollTop = 0;
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toastContainer.removeChild(toast);       1
+            }, 300);
+        }, 3000);
     }
 
     // Keypress for enter key
@@ -299,14 +318,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tabs switching function
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
+            // when clicking the button the tab is switched based on the data-tab name given to the attributes in html
             switchTabs(button.getAttribute('data-tab'));
         });
     });
 
     function switchTabs(tab) {
+        // getting the css class here and removing the active class from the classList
         document.querySelector('.tab-button.active').classList.remove('active');
+        // getting the attribute from html and adding active class here and the tab value is get from the data-tab value as already setted in html code
         document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+        // analyzing and hide the list
         document.querySelectorAll('.task-list').forEach(list => list.classList.add('hidden'));
+        // getting the tab and the task and remove hide
         document.getElementById(tab + 'Tasks').classList.remove('hidden');
         activeTab = tab;
     }
