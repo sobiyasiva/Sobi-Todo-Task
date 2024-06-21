@@ -1,7 +1,13 @@
+<!-- Tells the browser what is the version of the html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- UTF- unicode tranformation format -->
+    <!-- meta tag is useful in character set,description,keywords,author and viewport settings -->
+    <!-- character encoding which supports wide range of characters from various languages -->
     <meta charset="UTF-8">
+    <!-- browser instructions on how to control the page dimensions and scaling -->
+    <!-- responsive with initial zoom level 100% -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" href="todo.css">    
@@ -20,6 +26,7 @@
             </div>
         </div>
         <div class="container tabs">
+            <!-- data-tab is used as a attribute for css styling purposes -->
             <button class="tab-button active" data-tab="all">All (<span id="allCount">0</span>)</button>
             <button class="tab-button" data-tab="incomplete">Incomplete (<span id="incompleteCount">0</span>)</button>
             <button class="tab-button" data-tab="completed">Completed (<span id="completedCount">0</span>)</button>
